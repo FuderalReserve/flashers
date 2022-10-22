@@ -1,9 +1,29 @@
-require("dotenv").config()
+require("dotenv").config(/.env)
+import { env } from 'process';
+var ccxt = require ('ccxt');
 const Web3 = require('web3');
 
 const abis = require('./abis');
 const { optimism: addresses } = require('./addresses');
 const Flashloan = require('./build/contracts/Flashloan.json');
+
+//FTX
+const exchangeId = 'FTX'
+    , exchangeClass = ccxt[exchangeId]
+    , exchange = new exchangeClass ({
+        'apiKey': process.env.FTX_KEY,
+        'secret': process.env.FTX_SECRET,
+    })
+
+    let symbols = "BTC/USD";
+    let orderbook = await exchange.fetchOrderBook (exchange.symbols[0])
+    let bid = orderbook.bids.length ? orderbook.bids[0][0] : undefined
+    let ask = orderbook.asks.length ? orderbook.asks[0][0] : undefined
+    let spread = (bid && ask) ? ask - bid : undefined
+    console.log (exchange.id, 'market price', { bid, ask, spread })
+
+
+
 
 const web3 = new Web3(
   new Web3.providers.WebsocketProvider(process.env.INFURA_URL)

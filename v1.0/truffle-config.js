@@ -60,14 +60,22 @@ module.exports = {
       // websockets: true        // Enable EventEmitter interface for web3 (default: false)
     // },
 
-    mainnet: {
+    optimism: {
+      provider: () => new HDWalletProvider(
+        process.env.PRIVATE_KEY, 
+        process.env.INFURA_URL
+      ),
+      network_id: 10,       //mainnet,
+    },
+
+    /*mainnet: {
       provider: () => new HDWalletProvider(
         process.env.PRIVATE_KEY, 
         process.env.INFURA_URL
       ),
       network_id: 1,       //mainnet,
     },
-
+    */
     // Useful for private networks
     // private: {
       // provider: () => new HDWalletProvider(mnemonic, `https://network.io`),

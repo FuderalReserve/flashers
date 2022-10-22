@@ -22,5 +22,8 @@
   },
   "engines": {
     "node": "v15.x"
+  },
+  "devDependencies": {
+    "hardhat": "^2.12.0"
   }
 }
